@@ -631,7 +631,7 @@ public ItemRoutes<BlogsEntry> itemRoutes(
 | getTitle() | headline |
 | getContent() | articleBody |
 | getSubtitle() | alternativeHeadline |
-| getLastPublishedDate() | lastPublishedDate |
+| getDisplayDate() | datePublished |
 
 ## Mapping BlogsEntry to BlogPosting
 
@@ -646,7 +646,7 @@ public Representor<BlogsEntry, Long> representor(
 	).identifier(
 		blogsEntry -> blogsEntry.getEntryId()
 	).addDate(
-		"displayDate", BlogsEntry::getDisplayDate
+		"datePublished", BlogsEntry::getDisplayDate
 	).addLink(
 		"license", "https://creativecommons.org/licenses/by/4.0"
 	).addString(
