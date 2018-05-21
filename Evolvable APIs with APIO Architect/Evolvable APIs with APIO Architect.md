@@ -631,7 +631,7 @@ public ItemRoutes<BlogsEntry> itemRoutes(
 | getTitle() | headline |
 | getContent() | articleBody |
 | getSubtitle() | alternativeHeadline |
-| getLastPublishedDate() | lastPublishedDate |
+| getDisplayDate() | datePublished |
 
 ## Mapping BlogsEntry to BlogPosting
 
