@@ -10,24 +10,11 @@ Slides available here:
 
 ---
 
-# Vulcan 
-
-## 🖖
-
-
----
-
-## ~~Vulcan~~
-
-# APIO
-
----
-
 # Liferay APIs in 2018
 
 - SOAP
 - JSONWS API (/api/jsonws)
-- JAX-RS (7.0)
+- JAX-RS (7.0+)
 ...
 
 
@@ -83,14 +70,27 @@ Slides available here:
 
 ```json
 {
-    "resources": {
-        "blog-postings": {
-            "href": "http://apiosample.wedeploy.io/p/blog-postings"
+    "@context": "https://apiosample.wedeploy.io/doc",
+    "@id": "https://apiosample.wedeploy.io",
+    "@type": "EntryPoint",
+    "collection": [
+        {
+            "@id": "https://apiosample.wedeploy.io/p/blog-postings",
+            "@type": "Collection",
+            "manages": {
+                "object": "schema:BlogPosting",
+                "property": "rdf:type"
+            }
         },
-        "people": {
-            "href": "http://apiosample.wedeploy.io/p/people"
+        {
+            "@id": "https://apiosample.wedeploy.io/p/people",
+            "@type": "Collection",
+            "manages": {
+                "object": "schema:Person",
+                "property": "rdf:type"
+            }
         }
-    }
+    ]
 }
 ```
 
@@ -1062,76 +1062,6 @@ Routes for collections
 
 ---
 
-# The future
-
----
-
-# Any verb as an affordance
-
----
-
-```java, [.highlight: 11, 12]
-public ItemRoutes<BlogsEntry, Long> itemRoutes(Builder<BlogsEntry, Long> builder) {
-    return builder.addGetter(
-        _blogsService::getEntry
-    ).addRemover(
-        idempotent(_blogsService::deleteEntry),
-        _hasPermission::forDeleting(BlogsEntry.class)
-    ).addUpdater(
-        this::_updateBlogsEntry,
-        _hasPermission::forUpdating(BlogsEntry.class),
-        BlogPostingForm::buildForm
-    ).addOperation(
-        this::_subscribe, SubscribeOperation.class
-    ).build();
-}
-```
-
-Any verb as an affordance
-
----
-
-# Profile
-
----
-
-```json
-{
-  "@context": "http://www.w3.org/ns/hydra/core#",
-  "@id": "localhost:8080/vocab",
-  "@type": "ApiDocumentation",
-  "supportedClass": [
-    {
-      "@id": "http://schema.org/Person",
-      "@type": "hydra:Class",
-      "hydra:title": "Person",
-      "hydra:description": "A person that uses the system",
-      "supportedProperty": [
-        {
-          "property": "http://schema.org/givenName",
-          "hydra:title": "givenName",
-          "hydra:description": "The person's given name"
-        },
-        {
-          "property": "http://schema.org/description",
-          "hydra:title": "familyName",
-          "hydra:description": "The person's family name"
-        }
-      ]
-    },
-    ...
-  ]
-}
-```
-
-Profile
-
----
-
-# Queries & Ordering
-
----
-
 # [fit] [modules/apps/headless-apio](https://github.com/liferay/liferay-portal/tree/master/modules/apps/headless-apio)
 
 ---
@@ -1144,7 +1074,6 @@ Profile
 
 ![inline right](https://raw.githubusercontent.com/ahdezma/talks/master/.images/slack.pdf)
 
-# #apio-dev
 # #apio-users
 
 ---
